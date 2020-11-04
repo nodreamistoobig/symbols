@@ -71,7 +71,7 @@ image = np.sum(image, 2)
 image[image > 0] = 1
 
 labeled = label(image)            
-print(np.max(labeled))
+n = np.max(labeled)
 
 regions = regionprops(labeled)
 
@@ -79,17 +79,20 @@ d = {}
 i=1
 for region in regions:
     symbol = recognize(region)
-    if (symbol == 'None'):
-        print(i)
     if symbol not in d:
         d[symbol] = 1
     else:
         d[symbol] += 1
     i+=1
         
-
-        
+print(n)
 print(d)
+        
+for symbol in d:
+    d[symbol] = str(d[symbol] / n * 100) + '%'
+    print (symbol + ' => ' + d[symbol])
+    
+
 
 plt.figure()
 plt.subplot(121)
